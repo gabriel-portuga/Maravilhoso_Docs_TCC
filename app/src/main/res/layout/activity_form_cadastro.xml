@@ -13,7 +13,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:focusableInTouchMode="true"
-    tools:context=".FormCadastro">
+    tools:context=".activity.FormCadastro">
 
     <TextView
         android:id="@+id/title_cadastrese"

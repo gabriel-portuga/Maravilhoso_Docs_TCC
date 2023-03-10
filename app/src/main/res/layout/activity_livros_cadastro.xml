@@ -13,7 +13,36 @@
         android:layout_height="match_parent"
         android:background="@drawable/background"
         android:focusableInTouchMode="true"
-        tools:context=".LivrosCadastro">
+        tools:context=".activity.LivrosCadastro">
+
+        <EditText
+            android:id="@+id/edit_year"
+            style="@style/Edit_Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="Ano da publicação..."
+            android:inputType="number"
+            android:maxLength="4"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_author" />
+
+        <EditText
+            android:id="@+id/edit_author"
+            style="@style/Edit_Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="Autor..."
+            android:inputType="textPersonName|text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_title" />
 
         <TextView
             android:id="@+id/title_cadastrar"
@@ -31,8 +60,8 @@
         <EditText
             android:id="@+id/edit_title"
             style="@style/Edit_Text"
-            android:hint="Título"
-            android:inputType="text"
+            android:hint="Título..."
+            android:inputType="textPersonName|text"
             android:textColor="@color/black"
             android:textColorHint="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,26 +71,27 @@
         <EditText
             android:id="@+id/edit_link"
             style="@style/Edit_Text"
+            android:layout_marginTop="8dp"
             android:hint="Url - http://..."
             android:inputType="text"
             android:textColor="@color/black"
             android:textColorHint="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.222"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_title" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_year" />
 
         <EditText
             android:id="@+id/edit_description"
             style="@style/Edit_Text"
             android:layout_height="100dp"
-            android:hint="Descrição"
+            android:layout_marginTop="8dp"
+            android:hint="Resumo... Max 300 caracteres"
             android:inputType="textCapSentences|textMultiLine"
+            android:maxLength="300"
             android:maxLines="5"
             android:textColor="@color/black"
             android:textColorHint="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.222"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_link" />
 
@@ -71,6 +101,14 @@
             android:text="Salvar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_description" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_voltar"
+            style="@style/Button"
+            android:layout_marginTop="16dp"
+            android:text="Voltar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_salvar" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

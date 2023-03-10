@@ -1,4 +1,4 @@
-package com.gosys.maravilhoso_docs;
+package com.gosys.maravilhoso_docs.activity;
 
 import static android.content.ContentValues.TAG;
 
@@ -7,27 +7,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Query;
+import com.gosys.maravilhoso_docs.ItemLivros;
+import com.gosys.maravilhoso_docs.ItemLivrosAdapter;
+import com.gosys.maravilhoso_docs.R;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Livros extends AppCompatActivity {
@@ -35,10 +33,13 @@ public class Livros extends AppCompatActivity {
     private Button button_cadastrar;
     private Button button_buscar;
     private Button button_voltar;
-    private String search; // teste*
-    private TextView textTeste;
+    private String search;
 
-    FirebaseFirestore bd = FirebaseFirestore.getInstance(); // teste*
+
+    private ItemLivrosAdapter adapter;
+
+    private FirebaseFirestore bd;
+    private CollectionReference livrosRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +49,27 @@ public class Livros extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         IniciarComponentes();
 
+        bd = FirebaseFirestore.getInstance();
+        livrosRef = bd.collection("Livros");
+
+        Query query = livrosRef.orderBy("title");
+
+        FirestoreRecyclerOptions<ItemLivros> options = new FirestoreRecyclerOptions.Builder<ItemLivros>()
+                .setQuery(query, ItemLivros.class)
+                .build();
+
+        adapter = new ItemLivrosAdapter(options);
+
+        RecyclerView recyclerView = findViewById(R.id.recycle_viewLivros);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
+
+// NÃO ESTÁ FUNCIONANDO AINDA... CONSTRUIR!
         button_buscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // teste
+               // teste NÃO ESTÁ FUNCIONANDO!!!!!!!!*****************************************
                 search = edit_search.getText().toString();
                 DocumentReference docRef = bd.collection("Livros").document(search);
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -59,7 +77,6 @@ public class Livros extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
-                            textTeste.setText("funcionou");
                             if (document.exists()) {
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                             } else {
@@ -70,10 +87,10 @@ public class Livros extends AppCompatActivity {
                         }
                     }
                 });
-               // Fim teste
+               // Fim teste ******************************************************************
             }
         });
-
+// CONSTRUIR A TELA CADASTRO / DIRECIONAMENTO OK
         button_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,7 +98,7 @@ public class Livros extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+// OK
         button_voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,7 +115,6 @@ public class Livros extends AppCompatActivity {
         button_buscar = findViewById(R.id.button_buscar);
         button_cadastrar = findViewById(R.id.button_cadastrar);
         button_voltar = findViewById(R.id.button_voltar);
-        textTeste = findViewById(R.id.textTeste);
     }
 
 }
