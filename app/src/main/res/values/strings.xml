@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Maravilhoso_Docs</string>
+    <string name="entrar">Entrar</string>
+    <string name="text_cadastro">
+        <b>Crie uma conta </b><font color="#0040FF"><u>clicando aqui!</u></font>
+    </string>
+    <string name="title_cadastro">Cadastre-se</string>
+    <string name="title_cadastrar">Cadastrar</string>
+    <string name="text_deslogar">Clique aqui para <b>deslogar</b></string>
+    <string name="text_bemvinde_nome">Bem-vinde </string>
+</resources>
