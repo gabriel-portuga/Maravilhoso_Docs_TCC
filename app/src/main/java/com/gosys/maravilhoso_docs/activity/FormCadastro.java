@@ -29,6 +29,7 @@ import com.gosys.maravilhoso_docs.R;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class FormCadastro extends AppCompatActivity {
 
@@ -42,7 +43,7 @@ public class FormCadastro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_cadastro);
 
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         IniciarComponentes();
 
         button_cadastrar.setOnClickListener(new View.OnClickListener() {

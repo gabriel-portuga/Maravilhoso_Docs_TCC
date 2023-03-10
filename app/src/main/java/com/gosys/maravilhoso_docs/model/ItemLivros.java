@@ -1,11 +1,10 @@
-package com.gosys.maravilhoso_docs;
+package com.gosys.maravilhoso_docs.model;
 
 public class ItemLivros {
 
-    private String title;
-    private String author;
-    private String year;
-    private String description;
+    private String title, author, year, description;
+
+    public ItemLivros(){}
 
     public ItemLivros(String title, String author, String year, String description) {
         this.title = title;
