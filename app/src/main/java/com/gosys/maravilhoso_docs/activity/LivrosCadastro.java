@@ -64,8 +64,6 @@ public class LivrosCadastro extends AppCompatActivity {
         button_voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LivrosCadastro.this, Livros.class);
-                startActivity(intent);
                 finish();
             }
         });
@@ -95,8 +93,6 @@ public class LivrosCadastro extends AppCompatActivity {
                 Toast toast = Toast.makeText(context, "Dados salvos com sucesso!", Toast.LENGTH_SHORT);
                 toast.show();
 
-                Intent intent = new Intent(LivrosCadastro.this, Livros.class);
-                startActivity(intent);
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {

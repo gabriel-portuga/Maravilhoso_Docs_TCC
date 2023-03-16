@@ -34,7 +34,7 @@ public class FormLogin extends AppCompatActivity {
     private EditText edit_email, edit_senha;
     private Button buttonEntrar;
     private ProgressBar progressbar;
-    String[] mensagens = {"Preencha todos os campos!", "Login efetuado com sucesso"};
+    String[] mensagens = {"Preencha todos os campos!", "Login efetuado com sucesso!"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +81,9 @@ public class FormLogin extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     progressbar.setVisibility(View.VISIBLE);
+                    Context context = getApplicationContext();
+                    Toast toast = Toast.makeText(context, mensagens[1], Toast.LENGTH_SHORT);
+                    toast.show();
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -95,7 +98,7 @@ public class FormLogin extends AppCompatActivity {
                     }catch(FirebaseAuthWeakPasswordException e){
                         erro = "Digite uma senha com no mínimo 6 caracteres!";
                     }catch(FirebaseAuthInvalidCredentialsException e){
-                        erro = "Email ou senha inválido!";
+                        erro = "Email ou senha incorretos!";
                     }catch(FirebaseAuthEmailException e){
                         erro = "Email invalido!";
                     }catch(Exception e){

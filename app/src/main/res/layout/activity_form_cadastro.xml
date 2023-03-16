@@ -72,17 +72,30 @@
         app:layout_constraintTop_toBottomOf="@id/edit_email" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_Artigos"
+        android:id="@+id/button_Cadastrar"
         style="@style/Button"
+        android:layout_marginTop="8dp"
         android:text="Cadastrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/containerComponents" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_voltarLogin"
+        style="@style/Button"
+        android:text="Voltar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_Cadastrar" />
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/containerComponents">
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
