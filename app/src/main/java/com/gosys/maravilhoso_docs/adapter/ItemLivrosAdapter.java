@@ -39,7 +39,7 @@ public class ItemLivrosAdapter extends RecyclerView.Adapter<ItemLivrosAdapter.It
         holder.title.setText(itemLivros.getTitle());
         holder.author.setText(itemLivros.getAuthor());
         holder.year.setText(itemLivros.getYear());
-        holder.description.setText(itemLivros.getDescription());
+        //holder.description.setText(itemLivros.getDescription());
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ItemLivrosAdapter extends RecyclerView.Adapter<ItemLivrosAdapter.It
             title = itemView.findViewById(R.id.textTituloRV);
             author = itemView.findViewById(R.id.textAutorRV);
             year = itemView.findViewById(R.id.textAnoRV);
-            description = itemView.findViewById(R.id.textResumoRV);
+            //description = itemView.findViewById(R.id.textResumoRV);
         }
     }
 

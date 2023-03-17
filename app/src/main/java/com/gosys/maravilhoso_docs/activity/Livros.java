@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -78,8 +80,14 @@ public class Livros extends AppCompatActivity {
         button_buscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                search = edit_search.getText().toString().trim();
+                if (search.equals("")){
+                    Context context = getApplicationContext();
+                    Toast toast = Toast.makeText(context, "Preencha o campo buscar para localizar o documento!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
                // teste NÃO ESTÁ FUNCIONANDO!!!!!!!!*****************************************
-                search = edit_search.getText().toString();
+                /*search = edit_search.getText().toString();
                 DocumentReference docRef = bd.collection("Livros").document(search);
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -95,10 +103,10 @@ public class Livros extends AppCompatActivity {
                             Log.d(TAG, "get failed with ", task.getException());
                         }
                     }
-                });
+                });*/
                // Fim teste ******************************************************************
             }
-        });
+        }); // Fim Botão buscar
 // OK
         button_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
