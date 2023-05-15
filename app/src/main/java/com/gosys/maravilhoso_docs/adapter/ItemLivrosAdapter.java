@@ -1,6 +1,8 @@
 package com.gosys.maravilhoso_docs.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +34,7 @@ public class ItemLivrosAdapter extends RecyclerView.Adapter<ItemLivrosAdapter.It
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemLivrosAdapter.ItemLivrosViewHolder holder, int position){
+    public void onBindViewHolder(@NonNull ItemLivrosAdapter.ItemLivrosViewHolder holder, @SuppressLint("RecyclerView") int position){
 
         ItemLivros itemLivros = livrosArrayList.get(position);
 
@@ -40,6 +42,14 @@ public class ItemLivrosAdapter extends RecyclerView.Adapter<ItemLivrosAdapter.It
         holder.author.setText(itemLivros.getAuthor());
         holder.year.setText(itemLivros.getYear());
         //holder.description.setText(itemLivros.getDescription());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Clique", "clique curto no Autor: " + itemLivros.getAuthor());
+            }
+        });
+
     }
 
     @Override

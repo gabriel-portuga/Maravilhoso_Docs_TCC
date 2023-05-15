@@ -1,55 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.core.widget.NestedScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    tools:context=".activity.EditarArquivo">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background"
         android:focusableInTouchMode="true"
-        tools:context=".activity.LivrosCadastro">
-
-        <EditText
-            android:id="@+id/edit_year"
-            style="@style/Edit_Text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="Ano da publicação..."
-            android:inputType="number"
-            android:maxLength="4"
-            android:textColor="@color/black"
-            android:textColorHint="@color/grey"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_author" />
-
-        <EditText
-            android:id="@+id/edit_author"
-            style="@style/Edit_Text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="Autor..."
-            android:inputType="textPersonName|text"
-            android:textColor="@color/black"
-            android:textColorHint="@color/grey"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_title" />
+        tools:context=".activity.EditarArquivo">
 
         <TextView
             android:id="@+id/title_editar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/title_cadastrar"
+            android:text="@string/title_editar"
             android:textColor="@color/white"
             android:textSize="36sp"
             android:textStyle="bold"
@@ -67,6 +37,35 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_editar" />
+
+        <EditText
+            android:id="@+id/edit_author"
+            style="@style/Edit_Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="Autor..."
+            android:inputType="textPersonName|text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_title" />
+
+        <EditText
+            android:id="@+id/edit_year"
+            style="@style/Edit_Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="Ano da publicação..."
+            android:inputType="number"
+            android:maxLength="4"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_author" />
 
         <EditText
             android:id="@+id/edit_link"
@@ -110,6 +109,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_salvar" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_excluir"
+            style="@style/Button"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Excluir"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_voltar" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

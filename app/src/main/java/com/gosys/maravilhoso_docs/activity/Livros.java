@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -30,6 +31,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.gosys.maravilhoso_docs.model.ItemLivros;
 import com.gosys.maravilhoso_docs.adapter.ItemLivrosAdapter;
@@ -81,30 +83,16 @@ public class Livros extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 search = edit_search.getText().toString().trim();
+                hideKeyboard();
+                // teste
+
+                // fim teste
                 if (search.equals("")){
-                    Context context = getApplicationContext();
-                    Toast toast = Toast.makeText(context, "Preencha o campo buscar para localizar o documento!", Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast.makeText(getApplicationContext(), "Preencha o campo buscar para localizar o documento!", Toast.LENGTH_SHORT).show();
+                } else {
+                    buscaLivros(search);
                 }
-               // teste NÃO ESTÁ FUNCIONANDO!!!!!!!!*****************************************
-                /*search = edit_search.getText().toString();
-                DocumentReference docRef = bd.collection("Livros").document(search);
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                            } else {
-                                Log.d(TAG, "No such document");
-                            }
-                        } else {
-                            Log.d(TAG, "get failed with ", task.getException());
-                        }
-                    }
-                });*/
-               // Fim teste ******************************************************************
+
             }
         }); // Fim Botão buscar
 // OK
@@ -158,6 +146,27 @@ public class Livros extends AppCompatActivity {
         button_buscar = findViewById(R.id.button_buscar);
         button_cadastrar = findViewById(R.id.button_cadastrar);
         button_voltar = findViewById(R.id.button_voltar);
+    }
+
+    // Metodo para buscar e filtrar os livros
+    private void buscaLivros(String search){
+        bd.collection("Livros").whereEqualTo("author", search).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (!task.getResult().isEmpty()){
+                    for (QueryDocumentSnapshot document : task.getResult()){
+                        Log.d(TAG, document.getId() + " => " + document.getData());
+                    }
+                }    else {
+                    Toast.makeText(getApplicationContext(), "Nenhum item encontrado com essa descrição!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    } // Fim da busca
+
+    public void hideKeyboard(){
+        InputMethodManager m = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        m.hideSoftInputFromWindow(edit_search.getApplicationWindowToken(), 0);
     }
 
 }

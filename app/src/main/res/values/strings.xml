@@ -6,6 +6,7 @@
     </string>
     <string name="title_cadastro">Cadastre-se</string>
     <string name="title_cadastrar">Cadastrar</string>
+    <string name="title_editar">Editar</string>
     <string name="text_deslogar">Clique aqui para <b>deslogar</b></string>
     <string name="text_bemvinde_nome">Bem-vinde </string>
 </resources>
