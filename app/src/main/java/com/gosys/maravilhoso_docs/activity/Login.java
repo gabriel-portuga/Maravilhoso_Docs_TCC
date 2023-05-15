@@ -28,7 +28,7 @@ import com.gosys.maravilhoso_docs.R;
 
 import java.util.Objects;
 
-public class FormLogin extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     private TextView text_tela_cadastro;
     private EditText edit_email, edit_senha;
@@ -39,7 +39,7 @@ public class FormLogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form_login);
+        setContentView(R.layout.activity_login);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         Objects.requireNonNull(getSupportActionBar()).hide();
@@ -48,7 +48,7 @@ public class FormLogin extends AppCompatActivity {
         text_tela_cadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FormLogin.this, FormCadastro.class);
+                Intent intent = new Intent(Login.this, FormCadastro.class);
                 startActivity(intent);
             }
         });
@@ -122,7 +122,7 @@ public class FormLogin extends AppCompatActivity {
     }
 
     private void TelaPrincipal(){
-        Intent intent = new Intent(FormLogin.this, TelaPrincipal.class);
+        Intent intent = new Intent(Login.this, TelaPrincipal.class);
         startActivity(intent);
         finish();
     }

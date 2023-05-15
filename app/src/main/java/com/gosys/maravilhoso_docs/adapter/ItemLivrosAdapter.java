@@ -3,7 +3,6 @@ package com.gosys.maravilhoso_docs.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ public class ItemLivrosAdapter extends RecyclerView.Adapter<ItemLivrosAdapter.It
         this.context = context;
         this.livrosArrayList = livrosArrayList;
     }
-
     Context context;
     ArrayList<ItemLivros> livrosArrayList;
 
@@ -46,15 +44,9 @@ public class ItemLivrosAdapter extends RecyclerView.Adapter<ItemLivrosAdapter.It
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, Detalhes.class);
-                intent.putExtra("title", itemLivros.getTitle());
-                intent.putExtra("author", itemLivros.getAuthor());
-                intent.putExtra("description", itemLivros.getDescription());
-
-                context.startActivity(intent);
+                AbrirDetalhes(itemLivros);
             }
         });
-        // Fim teste do click curto
 
     }
 
@@ -74,6 +66,18 @@ public class ItemLivrosAdapter extends RecyclerView.Adapter<ItemLivrosAdapter.It
             year = itemView.findViewById(R.id.textAnoRV);
 
         }
+    }
+
+    private void AbrirDetalhes(ItemLivros itemLivros){
+        Intent intent = new Intent(context, Detalhes.class);
+        intent.putExtra("author", itemLivros.getAuthor());
+        intent.putExtra("description", itemLivros.getDescription());
+        intent.putExtra("id", itemLivros.getId());
+        intent.putExtra("link", itemLivros.getLink());
+        intent.putExtra("title", itemLivros.getTitle());
+        intent.putExtra("year", itemLivros.getYear());
+
+        context.startActivity(intent);
     }
 
 }

@@ -38,7 +38,7 @@ public class TelaPrincipal extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(TelaPrincipal.this, FormLogin.class);
+                Intent intent = new Intent(TelaPrincipal.this, Login.class);
                 startActivity(intent);
                 finish();
             }

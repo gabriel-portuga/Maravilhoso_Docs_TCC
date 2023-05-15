@@ -2,6 +2,8 @@ package com.gosys.maravilhoso_docs.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +16,7 @@ public class Detalhes extends AppCompatActivity {
 
     private TextView textTtile, textAuthor, textDescription;
     private Button buttonAbrir, buttonEditar, buttonVoltar;
-    private String title, author, description, id;
+    private String title, author, description, id, link, year;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,21 +25,24 @@ public class Detalhes extends AppCompatActivity {
 
         IniciarComponentes();
         CarregarInformacao();
-
         buttonAbrir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                AbrirUri();
             }
         });
-
+        buttonEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InjetarInformacao();
+            }
+        });
         buttonVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
     }
 
     private void IniciarComponentes() {
@@ -51,15 +56,34 @@ public class Detalhes extends AppCompatActivity {
 
     }
     private void CarregarInformacao() {
-        title = getIntent().getExtras().getString("title");
         author = getIntent().getExtras().getString("author");
         description = getIntent().getExtras().getString("description");
         id = getIntent().getExtras().getString("id");
+        link = getIntent().getExtras().getString("link");
+        title = getIntent().getExtras().getString("title");
+        year = getIntent().getExtras().getString("year");
 
         textTtile.setText(title);
         textAuthor.setText("Escrito por: " + author);
         textDescription.setText(description);
 
+    }
+    private void InjetarInformacao(){
+        Intent intent = new Intent(Detalhes.this, LivrosEdit.class);
+        intent.putExtra("author", author);
+        intent.putExtra("description", description);
+        intent.putExtra("id", id);
+        intent.putExtra("link", link);
+        intent.putExtra("title", title);
+        intent.putExtra("year", year);
+        intent.putExtra("titleActivity", 2);
+        startActivity(intent);
+        finish();
+    }
+    private void AbrirUri(){
+        Uri linkLivro = Uri.parse(link);
+        Intent intent = new Intent(Intent.ACTION_VIEW, linkLivro);
+        startActivity(intent);
     }
 
 }

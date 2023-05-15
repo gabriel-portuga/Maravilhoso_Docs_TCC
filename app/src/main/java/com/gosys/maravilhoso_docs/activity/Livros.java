@@ -17,16 +17,11 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -42,9 +37,7 @@ import java.util.Objects;
 
 public class Livros extends AppCompatActivity {
     private EditText edit_search;
-    private Button button_cadastrar;
-    private Button button_buscar;
-    private Button button_voltar;
+    private Button button_cadastrar, button_buscar, button_voltar;
     private String search;
 
     ArrayList<ItemLivros> livrosArrayList;
@@ -78,8 +71,6 @@ public class Livros extends AppCompatActivity {
 
         EventChangeListener();
 
-
-// NÃO ESTÁ FUNCIONANDO AINDA... CONSTRUIR!
         button_buscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,16 +86,17 @@ public class Livros extends AppCompatActivity {
                 }
 
             }
-        }); // Fim Botão buscar
-// OK
+        });
+
         button_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Livros.this, LivrosCadastro.class);
+                Intent intent = new Intent(Livros.this, LivrosEdit.class);
+                intent.putExtra("titleActivity", 1);
                 startActivity(intent);
             }
         });
-// OK
+
         button_voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,7 +142,6 @@ public class Livros extends AppCompatActivity {
         button_voltar = findViewById(R.id.button_voltar);
     }
 
-    // Metodo para buscar e filtrar os livros
     private void buscaLivros(String search){
         bd.collection("Livros").whereEqualTo("author", search).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

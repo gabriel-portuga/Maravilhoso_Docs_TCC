@@ -4,12 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,23 +23,20 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-public class LivrosCadastro extends AppCompatActivity {
-
-    private EditText edit_title;
-    private EditText edit_link;
-    private EditText edit_description;
-    private EditText edit_author;
-    private EditText edit_year;
-    private Button button_salvar;
-    private Button button_voltar;
+public class LivrosEdit extends AppCompatActivity {
+    private TextView title_activity;
+    private EditText edit_title, edit_link, edit_description, edit_author, edit_year;
+    private Button button_salvar, button_voltar, button_excluir;
+    private int titleActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_livros_cadastro);
+        setContentView(R.layout.activity_livros_edit);
 
         Objects.requireNonNull(getSupportActionBar()).hide();
         IniciarComponentes();
+        CarregarInformacao();
 
         button_salvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,8 +52,10 @@ public class LivrosCadastro extends AppCompatActivity {
                     Context context = getApplicationContext();
                     Toast toast = Toast.makeText(context, "Preencha todos os campos!", Toast.LENGTH_SHORT);
                     toast.show();
-                }else{
+                }else if (titleActivity == 1){
                     CadastrarLivro(title, author, year, link, description);
+                } else if (titleActivity == 2){
+                    EditarLivro(title, author, year, link, description);
                 }
             }
         });
@@ -105,8 +104,14 @@ public class LivrosCadastro extends AppCompatActivity {
             }
         });
     }
+    private void EditarLivro(String title, String author, String year, String link, String description){
+        String id = getIntent().getExtras().getString("id");
+        Context context = getApplicationContext();
+        FirebaseFirestore db_livros = FirebaseFirestore.getInstance();
+    }
 
     private void IniciarComponentes(){
+        title_activity = findViewById(R.id.title_activity);
         edit_title = findViewById(R.id.edit_title);
         edit_link = findViewById(R.id.edit_link);
         edit_description = findViewById(R.id.edit_description);
@@ -114,5 +119,16 @@ public class LivrosCadastro extends AppCompatActivity {
         edit_year = findViewById(R.id.edit_year);
         button_salvar = findViewById(R.id.button_salvar);
         button_voltar = findViewById(R.id.button_voltar);
+        button_excluir = findViewById(R.id.button_excluir);
+
+    }
+    private void CarregarInformacao(){
+        titleActivity = getIntent().getExtras().getInt("titleActivity");
+        if (titleActivity == 1) {
+            title_activity.setText("Cadastrar");
+        } else if (titleActivity == 2) {
+            title_activity.setText("Editar");
+            button_excluir.setVisibility(View.VISIBLE);
+        }
     }
 }
