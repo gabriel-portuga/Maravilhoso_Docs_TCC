@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Maravilhoso_Docs"
         tools:targetApi="31">
         <activity
+            android:name=".activity.Detalhes"
+            android:exported="false" />
+        <activity
             android:name=".activity.EditarArquivo"
             android:exported="false">
             <meta-data

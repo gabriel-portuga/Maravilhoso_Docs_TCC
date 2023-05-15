@@ -2,16 +2,30 @@ package com.gosys.maravilhoso_docs.model;
 
 public class ItemLivros {
 
-    private String title, author, year, description;
+    private String title;
+    private String author;
+    private String year;
+    private String description;
+    private String id;
+    private String link;
 
-    public ItemLivros(){}
+    public ItemLivros() {
+    }
 
-    public ItemLivros(String title, String author, String year, String description) {
+    // Construtores
+    public ItemLivros(String title, String author, String year,
+                      String description, String id, String link) {
         this.title = title;
         this.author = author;
         this.year = year;
         this.description = description;
+        this.id = id;
+        this.link = link;
     }
+
+    // Set e Get
+    public String getLink() { return link; }
+    public void setLink(String link) { this.link = link; }
 
     public String getTitle() {
         return title;
@@ -44,5 +58,7 @@ public class ItemLivros {
     public void setDescription(String description) {
         this.description = description;
     }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
 }

@@ -83,10 +83,9 @@ public class TelaPrincipal extends AppCompatActivity {
     private void IniciarComponentes() {
 
         textDeslogar = findViewById(R.id.textDeslogar);
-
         textSubTitle = findViewById(R.id.textSubTitle);
-
         button_Livros = findViewById(R.id.button_Livros);
         button_Artigos = findViewById(R.id.button_Cadastrar);
+
     }
 }

@@ -51,6 +51,7 @@ public class Livros extends AppCompatActivity {
     ItemLivrosAdapter itemLivrosAdapter;
     FirebaseFirestore bd;
     ProgressDialog progressDialog;
+    RecyclerView  recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class Livros extends AppCompatActivity {
 
         bd = FirebaseFirestore.getInstance();
 
-        RecyclerView recyclerView = findViewById(R.id.recycle_viewLivros);
+        recyclerView = findViewById(R.id.recycle_viewLivros);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
@@ -129,6 +130,7 @@ public class Livros extends AppCompatActivity {
                 }
 
                 for (DocumentChange dc : value.getDocumentChanges()){
+                    // Aqui onde alimenta o recyclerview com os itens
                     if (dc.getType() == DocumentChange.Type.ADDED){
                         livrosArrayList.add(dc.getDocument().toObject(ItemLivros.class));
 
