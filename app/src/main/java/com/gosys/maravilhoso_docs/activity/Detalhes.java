@@ -17,7 +17,6 @@ import com.gosys.maravilhoso_docs.R;
 import java.util.Objects;
 
 public class Detalhes extends AppCompatActivity {
-
     private TextView textTtile, textAuthor, textDescription;
     private Button buttonAbrir, buttonEditar, buttonVoltar;
     private String title, author, description, id, link, year;
@@ -59,7 +58,6 @@ public class Detalhes extends AppCompatActivity {
         buttonAbrir = findViewById(R.id.buttonAbrir);
         buttonEditar = findViewById(R.id.buttonEditar);
         buttonVoltar = findViewById(R.id.buttonVoltar);
-
     }
     private void CarregarInformacao() {
         author = getIntent().getExtras().getString("author");
@@ -72,7 +70,6 @@ public class Detalhes extends AppCompatActivity {
         textTtile.setText(title);
         textAuthor.setText("Escrito por: " + author);
         textDescription.setText(description);
-
     }
     private void InjetarInformacao(){
         Intent intent = new Intent(Detalhes.this, LivrosEdit.class);
@@ -91,6 +88,4 @@ public class Detalhes extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW, linkLivro);
         startActivity(intent);
     }
-
-
 }

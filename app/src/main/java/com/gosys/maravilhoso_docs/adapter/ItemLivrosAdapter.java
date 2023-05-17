@@ -47,7 +47,6 @@ public class ItemLivrosAdapter extends RecyclerView.Adapter<ItemLivrosAdapter.It
                 AbrirDetalhes(itemLivros);
             }
         });
-
     }
 
     @Override
@@ -64,10 +63,8 @@ public class ItemLivrosAdapter extends RecyclerView.Adapter<ItemLivrosAdapter.It
             author = itemView.findViewById(R.id.textAutorRV);
             title = itemView.findViewById(R.id.textTituloRV);
             year = itemView.findViewById(R.id.textAnoRV);
-
         }
     }
-
     private void AbrirDetalhes(ItemLivros itemLivros){
         Intent intent = new Intent(context, Detalhes.class);
         intent.putExtra("author", itemLivros.getAuthor());
@@ -79,6 +76,5 @@ public class ItemLivrosAdapter extends RecyclerView.Adapter<ItemLivrosAdapter.It
 
         context.startActivity(intent);
     }
-
 }
 

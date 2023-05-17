@@ -82,7 +82,6 @@ public class Livros extends AppCompatActivity {
                 }
             }
         });
-
         button_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,7 +90,6 @@ public class Livros extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         button_voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,7 +98,6 @@ public class Livros extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
     @Override
@@ -108,7 +105,6 @@ public class Livros extends AppCompatActivity {
         super.onResume();
         EventChangeListener();
     }
-
     private void EventChangeListener() {
         bd.collection("Livros").orderBy("title", Query.Direction.ASCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -143,7 +139,6 @@ public class Livros extends AppCompatActivity {
         button_cadastrar = findViewById(R.id.button_cadastrar);
         button_voltar = findViewById(R.id.button_voltar);
     }
-
     private void buscaLivros(String search){
         bd.collection("Livros").whereEqualTo("author", search).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -157,11 +152,9 @@ public class Livros extends AppCompatActivity {
                 }
             }
         });
-    } // Fim da busca
-
+    }
     public void hideKeyboard(){
         InputMethodManager m = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         m.hideSoftInputFromWindow(edit_search.getApplicationWindowToken(), 0);
     }
-
 }
