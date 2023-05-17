@@ -2,15 +2,19 @@ package com.gosys.maravilhoso_docs.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gosys.maravilhoso_docs.R;
+
+import java.util.Objects;
 
 public class Detalhes extends AppCompatActivity {
 
@@ -22,6 +26,8 @@ public class Detalhes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes);
+
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         IniciarComponentes();
         CarregarInformacao();
@@ -85,5 +91,6 @@ public class Detalhes extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW, linkLivro);
         startActivity(intent);
     }
+
 
 }

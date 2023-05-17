@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -69,22 +70,16 @@ public class Livros extends AppCompatActivity {
         itemLivrosAdapter = new ItemLivrosAdapter(Livros.this, livrosArrayList);
         recyclerView.setAdapter(itemLivrosAdapter);
 
-        EventChangeListener();
-
         button_buscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 search = edit_search.getText().toString().trim();
                 hideKeyboard();
-                // teste
-
-                // fim teste
                 if (search.equals("")){
                     Toast.makeText(getApplicationContext(), "Preencha o campo buscar para localizar o documento!", Toast.LENGTH_SHORT).show();
                 } else {
                     buscaLivros(search);
                 }
-
             }
         });
 
@@ -108,9 +103,16 @@ public class Livros extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        EventChangeListener();
+    }
+
     private void EventChangeListener() {
         bd.collection("Livros").orderBy("title", Query.Direction.ASCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
@@ -120,12 +122,12 @@ public class Livros extends AppCompatActivity {
                     Log.e("Erro no FireStore", error.getMessage());
                     return;
                 }
-
+                livrosArrayList.clear();
+                assert value != null;
                 for (DocumentChange dc : value.getDocumentChanges()){
                     // Aqui onde alimenta o recyclerview com os itens
                     if (dc.getType() == DocumentChange.Type.ADDED){
                         livrosArrayList.add(dc.getDocument().toObject(ItemLivros.class));
-
                     }
                     itemLivrosAdapter.notifyDataSetChanged();
                     if (progressDialog.isShowing())
