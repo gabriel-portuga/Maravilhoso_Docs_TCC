@@ -83,10 +83,7 @@ public class LivrosEdit extends AppCompatActivity {
                                 }
                             });
                     confirmaExclusao.create().show();
-
                 }
-                // Ao clicar em excluir, ABRIR uma mensagem de notificação perguntando se tem certeza da exclusão, se confirmar, excluir o arquivo.
-                // se não, fechar a tela de edição e voltar pros detalhes
             }
         });
         button_voltar.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +92,6 @@ public class LivrosEdit extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
     private void CadastrarLivro(String title, String author, String year, String link, String description) {
@@ -188,7 +184,6 @@ public class LivrosEdit extends AppCompatActivity {
         button_salvar = findViewById(R.id.button_salvar);
         button_voltar = findViewById(R.id.button_voltar);
         button_excluir = findViewById(R.id.button_excluir);
-
     }
     private void CarregarInformacao(){
         titleActivity = getIntent().getExtras().getInt("titleActivity");

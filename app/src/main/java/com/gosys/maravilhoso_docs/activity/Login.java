@@ -69,7 +69,6 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void AutenticarUsuario(View view){
@@ -82,8 +81,7 @@ public class Login extends AppCompatActivity {
                 if (task.isSuccessful()){
                     progressbar.setVisibility(View.VISIBLE);
                     Context context = getApplicationContext();
-                    Toast toast = Toast.makeText(context, mensagens[1], Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast.makeText(context, mensagens[1], Toast.LENGTH_SHORT).show();
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -106,8 +104,7 @@ public class Login extends AppCompatActivity {
                     }
 
                     Context context = getApplicationContext();
-                    Toast toast = Toast.makeText(context, erro, Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast.makeText(context, erro, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -120,13 +117,11 @@ public class Login extends AppCompatActivity {
             TelaPrincipal();
         }
     }
-
     private void TelaPrincipal(){
         Intent intent = new Intent(Login.this, TelaPrincipal.class);
         startActivity(intent);
         finish();
     }
-
     private void IniciarComponentes(){
         text_tela_cadastro = findViewById(R.id.text_tela_cadastro);
         edit_email = findViewById(R.id.edit_email);
@@ -138,5 +133,4 @@ public class Login extends AppCompatActivity {
         InputMethodManager m = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         m.hideSoftInputFromWindow(edit_email.getApplicationWindowToken(), 0);
     }
-
 }

@@ -32,7 +32,6 @@ import java.util.Map;
 import java.util.Objects;
 
 public class FormCadastro extends AppCompatActivity {
-
     private EditText edit_nome, edit_email, edit_senha;
     private Button button_cadastrar, button_voltar;
     String[] mensagens_advertencia = {"Preencha todos os campos!", "Cadastro realizado com sucesso!", ""};
@@ -64,14 +63,12 @@ public class FormCadastro extends AppCompatActivity {
                 }
             }
         });
-
         button_voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
     }
 
     private void CadastrarUsuario(){
@@ -111,7 +108,6 @@ public class FormCadastro extends AppCompatActivity {
                     Context context = getApplicationContext();
                     Toast toast = Toast.makeText(context, erro, Toast.LENGTH_SHORT);
                     toast.show();
-
                 }
             }
         });
@@ -140,7 +136,6 @@ public class FormCadastro extends AppCompatActivity {
             }
         });
     }
-
     private void IniciarComponentes(){
         edit_nome = findViewById(R.id.edit_nome);
         edit_email = findViewById(R.id.edit_email);
@@ -148,10 +143,8 @@ public class FormCadastro extends AppCompatActivity {
         button_cadastrar = findViewById(R.id.button_Cadastrar);
         button_voltar = findViewById(R.id.button_voltarLogin);
     }
-
     public void hideKeyboard(){
         InputMethodManager m = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         m.hideSoftInputFromWindow(edit_email.getApplicationWindowToken(), 0);
     }
-
 }
