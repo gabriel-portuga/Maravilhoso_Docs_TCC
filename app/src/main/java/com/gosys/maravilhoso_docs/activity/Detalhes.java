@@ -2,14 +2,11 @@ package com.gosys.maravilhoso_docs.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gosys.maravilhoso_docs.R;
@@ -68,11 +65,11 @@ public class Detalhes extends AppCompatActivity {
         year = getIntent().getExtras().getString("year");
 
         textTtile.setText(title);
-        textAuthor.setText("Escrito por: " + author);
+        textAuthor.setText(author);
         textDescription.setText(description);
     }
     private void InjetarInformacao(){
-        Intent intent = new Intent(Detalhes.this, LivrosEdit.class);
+        Intent intent = new Intent(Detalhes.this, Livros_ArtigosEdit.class);
         intent.putExtra("author", author);
         intent.putExtra("description", description);
         intent.putExtra("id", id);

@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.gosys.maravilhoso_docs.R;
@@ -27,7 +25,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-public class LivrosEdit extends AppCompatActivity {
+public class Livros_ArtigosEdit extends AppCompatActivity {
     private TextView title_activity;
     private EditText edit_title, edit_link, edit_description, edit_author, edit_year;
     private Button button_salvar, button_voltar, button_excluir;
@@ -37,7 +35,7 @@ public class LivrosEdit extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_livros_edit);
+        setContentView(R.layout.activity_livros_artigos_edit);
 
         Objects.requireNonNull(getSupportActionBar()).hide();
         IniciarComponentes();
@@ -76,7 +74,7 @@ public class LivrosEdit extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (titleActivity == 2){
-                    AlertDialog.Builder confirmaExclusao = new AlertDialog.Builder(LivrosEdit.this);
+                    AlertDialog.Builder confirmaExclusao = new AlertDialog.Builder(Livros_ArtigosEdit.this);
                     confirmaExclusao.setTitle(" Excluindo... ").setMessage(" Tem certeza que deseja excluir: " + getIntent().getExtras().getString("title") + " ? ")
                             .setCancelable(false).setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
                                 @Override
@@ -92,7 +90,7 @@ public class LivrosEdit extends AppCompatActivity {
                                     } else if (!livro_artigo){
                                         ExcluirArtigo();
                                     }
-                                    Toast.makeText(LivrosEdit.this, "Excluido com sucesso!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Livros_ArtigosEdit.this, "Excluido com sucesso!", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
                             });
@@ -234,14 +232,14 @@ public class LivrosEdit extends AppCompatActivity {
             @Override
             public void onSuccess(Void unused) {
                 Log.d("db", "Arquivo excluido do banco de dados!");
-                Toast.makeText(LivrosEdit.this, "Excluido com sucesso!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Livros_ArtigosEdit.this, "Excluido com sucesso!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d("db_error", "Erro ao excluir do banco de dados!");
-                Toast.makeText(LivrosEdit.this, "Erro ao excluir o arquivo!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Livros_ArtigosEdit.this, "Erro ao excluir o arquivo!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -253,14 +251,14 @@ public class LivrosEdit extends AppCompatActivity {
             @Override
             public void onSuccess(Void unused) {
                 Log.d("db", "Arquivo excluido do banco de dados!");
-                Toast.makeText(LivrosEdit.this, "Excluido com sucesso!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Livros_ArtigosEdit.this, "Excluido com sucesso!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d("db_error", "Erro ao excluir do banco de dados!");
-                Toast.makeText(LivrosEdit.this, "Erro ao excluir o arquivo!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Livros_ArtigosEdit.this, "Erro ao excluir o arquivo!", Toast.LENGTH_SHORT).show();
             }
         });
     }

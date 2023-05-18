@@ -18,14 +18,7 @@
             android:name=".activity.Detalhes"
             android:exported="false" />
         <activity
-            android:name=".activity.LivrosEdit"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".activity.Artigos"
+            android:name=".activity.Livros_ArtigosEdit"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

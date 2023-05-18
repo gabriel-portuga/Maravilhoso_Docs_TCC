@@ -55,7 +55,7 @@ public class Livros_Artigos extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_livros);
+        setContentView(R.layout.activity_livros_artigos);
 
         firstTime = true;
         livro_artigo = getIntent().getExtras().getBoolean("livro_artigo");
@@ -93,7 +93,7 @@ public class Livros_Artigos extends AppCompatActivity {
         button_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Livros_Artigos.this, LivrosEdit.class);
+                Intent intent = new Intent(Livros_Artigos.this, Livros_ArtigosEdit.class);
                 intent.putExtra("titleActivity", 1);
                 if (livro_artigo){
                     intent.putExtra("livro_artigo", true);
