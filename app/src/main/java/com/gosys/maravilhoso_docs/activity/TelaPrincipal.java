@@ -47,7 +47,8 @@ public class TelaPrincipal extends AppCompatActivity {
         button_Livros.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TelaPrincipal.this, Livros.class);
+                Intent intent = new Intent(TelaPrincipal.this, Livros_Artigos.class);
+                intent.putExtra("livro_artigo", true);
                 startActivity(intent);
                 finish();
             }
@@ -56,7 +57,8 @@ public class TelaPrincipal extends AppCompatActivity {
         button_Artigos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TelaPrincipal.this, Artigos.class);
+                Intent intent = new Intent(TelaPrincipal.this, Livros_Artigos.class);
+                intent.putExtra("livro_artigo", false);
                 startActivity(intent);
                 finish();
             }

@@ -32,6 +32,7 @@ public class LivrosEdit extends AppCompatActivity {
     private EditText edit_title, edit_link, edit_description, edit_author, edit_year;
     private Button button_salvar, button_voltar, button_excluir;
     private int titleActivity;
+    private boolean livro_artigo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class LivrosEdit extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         IniciarComponentes();
         CarregarInformacao();
+        livro_artigo = getIntent().getExtras().getBoolean("livro_artigo");
 
         button_salvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,9 +58,17 @@ public class LivrosEdit extends AppCompatActivity {
                     Context context = getApplicationContext();
                     Toast.makeText(context, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
                 } else if (titleActivity == 1){
-                    CadastrarLivro(title, author, year, link, description);
+                    if (livro_artigo){
+                        CadastrarLivro(title, author, year, link, description);
+                    } else if (!livro_artigo) {
+                        CadastrarArtigo(title, author, year, link, description);
+                    }
                 } else if (titleActivity == 2){
-                    EditarLivro(title, author, year, link, description);
+                    if (livro_artigo){
+                        EditarLivro(title, author, year, link, description);
+                    } else if (!livro_artigo){
+                        EditarArtigo(title, author, year, link, description);
+                    }
                 }
             }
         });
@@ -77,7 +87,11 @@ public class LivrosEdit extends AppCompatActivity {
                             .setPositiveButton("SIM", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    ExcluirLivro();
+                                    if (livro_artigo){
+                                        ExcluirLivro();
+                                    } else if (!livro_artigo){
+                                        ExcluirArtigo();
+                                    }
                                     Toast.makeText(LivrosEdit.this, "Excluido com sucesso!", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
@@ -125,6 +139,36 @@ public class LivrosEdit extends AppCompatActivity {
             }
         });
     }
+    private void CadastrarArtigo(String title, String author, String year, String link, String description){
+        String id = UUID.randomUUID().toString();
+        Context context = getApplicationContext();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Map<String, Object> artigos = new HashMap<>();
+        artigos.put("id", id);
+        artigos.put("title", title);
+        artigos.put("author", author);
+        artigos.put("year", year);
+        artigos.put("link", link);
+        artigos.put("description", description);
+
+        DocumentReference documentReference = db.collection("Artigos").document(id);
+        documentReference.set(artigos).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d("db", "Sucesso ao salvar os dados");
+                Toast.makeText(context, "Dados salvos com sucesso!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("db_error", "Erro ao salvar os dados" + e);
+                Toast.makeText(context, "Erro ao salvar no banco de dados!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void EditarLivro(String title, String author, String year, String link, String description) {
         String id = getIntent().getExtras().getString("id");
         Context context = getApplicationContext();
@@ -143,6 +187,34 @@ public class LivrosEdit extends AppCompatActivity {
             public void onSuccess(Void unused) {
                 Log.d("db", "Sucesso ao editar os dados");
 
+                Toast.makeText(context, "Dados editados com sucesso!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("db_error", "Erro ao editar os dados" + e);
+                Toast.makeText(context, "Erro ao editar no banco de dados!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void EditarArtigo(String title, String author, String year, String link, String description){
+        String id = getIntent().getExtras().getString("id");
+        Context context = getApplicationContext();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Map<String, Object> artigos = new HashMap<>();
+        artigos.put("id", id);
+        artigos.put("title", title);
+        artigos.put("author", author);
+        artigos.put("year", year);
+        artigos.put("link", link);
+        artigos.put("description", description);
+
+        db.collection("Artigos").document(id).set(artigos).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d("db", "Sucesso ao editar os dados");
                 Toast.makeText(context, "Dados editados com sucesso!", Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -173,7 +245,25 @@ public class LivrosEdit extends AppCompatActivity {
             }
         });
     }
+    private void ExcluirArtigo(){
+        String id = getIntent().getExtras().getString("id");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+        db.collection("Artigos").document(id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d("db", "Arquivo excluido do banco de dados!");
+                Toast.makeText(LivrosEdit.this, "Excluido com sucesso!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("db_error", "Erro ao excluir do banco de dados!");
+                Toast.makeText(LivrosEdit.this, "Erro ao excluir o arquivo!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void IniciarComponentes(){
         title_activity = findViewById(R.id.title_activity);
         edit_title = findViewById(R.id.edit_title);

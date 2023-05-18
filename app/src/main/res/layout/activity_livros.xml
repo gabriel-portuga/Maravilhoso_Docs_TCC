@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/background"
         android:focusableInTouchMode="true"
-        tools:context=".activity.Livros">
+        tools:context=".activity.Livros_Artigos">
 
         <EditText
             android:id="@+id/edit_search"

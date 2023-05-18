@@ -29,7 +29,7 @@ public class ItemLivrosAdapter extends RecyclerView.Adapter<ItemLivrosAdapter.It
     @NonNull
     @Override
     public ItemLivrosAdapter.ItemLivrosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
-        View v = LayoutInflater.from(context).inflate(R.layout.item_livros, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.item_livros_artigos, parent, false);
         return new ItemLivrosViewHolder(v);
     }
 

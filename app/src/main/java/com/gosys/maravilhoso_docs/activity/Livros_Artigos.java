@@ -29,6 +29,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.gosys.maravilhoso_docs.adapter.ItemArtigosAdapter;
+import com.gosys.maravilhoso_docs.model.ItemArtigos;
 import com.gosys.maravilhoso_docs.model.ItemLivros;
 import com.gosys.maravilhoso_docs.adapter.ItemLivrosAdapter;
 import com.gosys.maravilhoso_docs.R;
@@ -36,13 +38,16 @@ import com.gosys.maravilhoso_docs.R;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Livros extends AppCompatActivity {
+public class Livros_Artigos extends AppCompatActivity {
     private EditText edit_search;
     private Button button_cadastrar, button_buscar, button_voltar;
     private String search;
+    private boolean firstTime, livro_artigo;
 
     ArrayList<ItemLivros> livrosArrayList;
+    ArrayList<ItemArtigos> artigosArrayList;
     ItemLivrosAdapter itemLivrosAdapter;
+    ItemArtigosAdapter itemArtigosAdapter;
     FirebaseFirestore bd;
     ProgressDialog progressDialog;
     RecyclerView  recyclerView;
@@ -51,6 +56,9 @@ public class Livros extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_livros);
+
+        firstTime = true;
+        livro_artigo = getIntent().getExtras().getBoolean("livro_artigo");
 
         Objects.requireNonNull(getSupportActionBar()).hide();
         IniciarComponentes();
@@ -66,9 +74,9 @@ public class Livros extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        livrosArrayList = new ArrayList<ItemLivros>();
-        itemLivrosAdapter = new ItemLivrosAdapter(Livros.this, livrosArrayList);
-        recyclerView.setAdapter(itemLivrosAdapter);
+
+
+        if(firstTime){EventChangeListener();}
 
         button_buscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,15 +93,20 @@ public class Livros extends AppCompatActivity {
         button_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Livros.this, LivrosEdit.class);
+                Intent intent = new Intent(Livros_Artigos.this, LivrosEdit.class);
                 intent.putExtra("titleActivity", 1);
+                if (livro_artigo){
+                    intent.putExtra("livro_artigo", true);
+                }else if (!livro_artigo){
+                    intent.putExtra("livro_artigo", false);
+                }
                 startActivity(intent);
             }
         });
         button_voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Livros.this, TelaPrincipal.class);
+                Intent intent = new Intent(Livros_Artigos.this, TelaPrincipal.class);
                 startActivity(intent);
                 finish();
             }
@@ -103,34 +116,70 @@ public class Livros extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
+        firstTime = false;
         EventChangeListener();
     }
     private void EventChangeListener() {
-        bd.collection("Livros").orderBy("title", Query.Direction.ASCENDING)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+        if (livro_artigo){
+            livrosArrayList = new ArrayList<ItemLivros>();
+            itemLivrosAdapter = new ItemLivrosAdapter(Livros_Artigos.this, livrosArrayList);
+            recyclerView.setAdapter(itemLivrosAdapter);
+            bd.collection("Livros").orderBy("title", Query.Direction.ASCENDING)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @SuppressLint("NotifyDataSetChanged")
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                if (error != null){
-                    if (progressDialog.isShowing())
-                        progressDialog.dismiss();
-                    Log.e("Erro no FireStore", error.getMessage());
-                    return;
-                }
-                livrosArrayList.clear();
-                assert value != null;
-                for (DocumentChange dc : value.getDocumentChanges()){
-                    // Aqui onde alimenta o recyclerview com os itens
-                    if (dc.getType() == DocumentChange.Type.ADDED){
-                        livrosArrayList.add(dc.getDocument().toObject(ItemLivros.class));
-                    }
-                    itemLivrosAdapter.notifyDataSetChanged();
-                    if (progressDialog.isShowing())
-                        progressDialog.dismiss();
-                }
-            }
-        });
+                            if (error != null){
+                                if (progressDialog.isShowing())
+                                    progressDialog.dismiss();
+                                Log.e("Erro no FireStore", error.getMessage());
+                                return;
+                            }
+                            livrosArrayList.clear();
+                            assert value != null;
+                            for (DocumentChange dc : value.getDocumentChanges()){
+                                // Aqui onde alimenta o recyclerview com os itens
+                                if (dc.getType() == DocumentChange.Type.ADDED){
+                                    livrosArrayList.add(dc.getDocument().toObject(ItemLivros.class));
+                                }
+                                itemLivrosAdapter.notifyDataSetChanged();
+                                if (progressDialog.isShowing())
+                                    progressDialog.dismiss();
+                            }
+                        }
+                    });
+        } else if (!livro_artigo){
+            artigosArrayList = new ArrayList<ItemArtigos>();
+            itemArtigosAdapter = new ItemArtigosAdapter(Livros_Artigos.this, artigosArrayList);
+            recyclerView.setAdapter(itemArtigosAdapter);
+            bd.collection("Artigos").orderBy("title", Query.Direction.ASCENDING)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @SuppressLint("NotifyDataSetChanged")
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                            if (error != null){
+                                if (progressDialog.isShowing())
+                                    progressDialog.dismiss();
+                                Log.e("Erro no FireStore", error.getMessage());
+                                return;
+                            }
+                            artigosArrayList.clear();
+                            assert value != null;
+                            for (DocumentChange dc : value.getDocumentChanges()){
+                                // Aqui onde alimenta o recyclerview com os itens
+                                if (dc.getType() == DocumentChange.Type.ADDED){
+                                    artigosArrayList.add(dc.getDocument().toObject(ItemArtigos.class));
+                                }
+                                itemArtigosAdapter.notifyDataSetChanged();
+                                if (progressDialog.isShowing())
+                                    progressDialog.dismiss();
+                            }
+                        }
+                    });
+        }
+
     }
 
     private void IniciarComponentes(){

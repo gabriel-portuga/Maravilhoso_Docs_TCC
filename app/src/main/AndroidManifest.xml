@@ -32,7 +32,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.Livros"
+            android:name=".activity.Livros_Artigos"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
